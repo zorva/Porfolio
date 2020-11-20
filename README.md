@@ -1,2 +1,2 @@
-# Porfolio
-Where I share my usual practice in web development 
+#React-Porfolio
+Where I share my usual practice with the React js library 
