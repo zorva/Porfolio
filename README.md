@@ -1,2 +1,2 @@
 #React-Porfolio
-Where I share my usual practice with the React js library 
+the documents and the apps are in the master branch  
