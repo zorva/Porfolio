@@ -1,0 +1,24 @@
+{
+  "name": "React",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Rc4.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zorva/React-Porfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zorva/React-Porfolio/issues"
+  },
+  "homepage": "https://github.com/zorva/React-Porfolio#readme",
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-react-app": "^3.1.2"
+  }
+}
