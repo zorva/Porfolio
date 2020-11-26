@@ -1,0 +1,10 @@
+Run npm init -y
+Run npm install babel-cli@6 babel-preset-react-app@3
+
+
+enable conversor 
+
+this should be done after creating a folder called src 
+and run inside the folder where src sites 
+
+npx babel --watch src --out-dir . --presets react-app/prod
