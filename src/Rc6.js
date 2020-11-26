@@ -1,26 +1,26 @@
 'use strict';  
-function Changer(){
-    return(
-        <div className="Changer">
-     <input></input>
-    <button>Change</button>
-        </div>
-    )
-}
+  
 class IMG extends React.Component {
     constructor(props){
         super(props);
-        this.state = this.props.url
+        this.state ={ url:this.props.url}
     } 
+     Cng =() => {
+         let vl = document.getElementById('inp').value;
+         this.setState({url:vl})
+     }
     render(){
     return (
        <div className="img">
-    <img src = {this.state} alt = {this.props.desc}/>
-    {Changer()}
+    <img src = {this.state.url} alt = {this.props.desc}/>
+         <br></br>
+         <input id="inp"></input>
+        <button onClick={this.Cng}>Change</button>
     </div> 
     );   
     } 
-}    
+}  
 const Img = <IMG url="images/index.jpeg" desc="some dude" />;
 
 ReactDOM.render(Img,document.querySelector('#container'));
+

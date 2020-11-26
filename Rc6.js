@@ -8,19 +8,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function Changer() {
-    return React.createElement(
-        "div",
-        { className: "Changer" },
-        React.createElement("input", null),
-        React.createElement(
-            "button",
-            null,
-            "Change"
-        )
-    );
-}
-
 var IMG = function (_React$Component) {
     _inherits(IMG, _React$Component);
 
@@ -29,18 +16,29 @@ var IMG = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (IMG.__proto__ || Object.getPrototypeOf(IMG)).call(this, props));
 
-        _this.state = _this.props.url;
+        _this.Cng = function () {
+            var vl = document.getElementById('inp').value;
+            _this.setState({ url: vl });
+        };
+
+        _this.state = { url: _this.props.url };
         return _this;
     }
 
     _createClass(IMG, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
-                { className: "img" },
-                React.createElement("img", { src: this.state, alt: this.props.desc }),
-                Changer()
+                'div',
+                { className: 'img' },
+                React.createElement('img', { src: this.state.url, alt: this.props.desc }),
+                React.createElement('br', null),
+                React.createElement('input', { id: 'inp' }),
+                React.createElement(
+                    'button',
+                    { onClick: this.Cng },
+                    'Change'
+                )
             );
         }
     }]);
@@ -48,6 +46,6 @@ var IMG = function (_React$Component) {
     return IMG;
 }(React.Component);
 
-var Img = React.createElement(IMG, { url: "images/index.jpeg", desc: "some dude" });
+var Img = React.createElement(IMG, { url: 'images/index.jpeg', desc: 'some dude' });
 
 ReactDOM.render(Img, document.querySelector('#container'));
