@@ -1,0 +1,29 @@
+#InfoAndSearch{
+    border: 1px solid black;
+}
+#Searcher{
+    margin: 10px;
+}
+#mainInfo{
+    text-align: center;
+}
+ th{
+    border: 1px solid black;
+}
+#newElement{
+    height: 15px;
+    border-radius: 50%;
+}
+#units,#value{
+   width: 70px;
+   margin: 3px;
+}
+#name{
+    margin: 3px;
+    margin-top: 5px;
+    width: 70px;
+}
+.FormLabels{
+    margin: 1px;
+    font-size: 12px;
+}

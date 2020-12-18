@@ -23,4 +23,3 @@ class IMG extends React.Component {
 const Img = <IMG url="images/index.jpeg" desc="some dude" />;
 
 ReactDOM.render(Img,document.querySelector('#container'));
-
