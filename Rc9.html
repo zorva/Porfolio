@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>2 inputs multiplication</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+      Update(e){
+         let nextInp = e.target.nextElementSibling.nextElementSibling
+         let p = nextInp.nextElementSibling
+         p.textContent = nextInp.value*e.target.value
+        }
+      Update2(e){
+          let preInp = e.target.previousElementSibling.previousElementSibling
+          let p = e.target.nextElementSibling
+          p.textContent = e.target.value*preInp.value
+      }
+    //    despite adding some ids I didn't to use them since
+    //     my objective was to create functions that will work 
+    //     whenever the inputs and the p elements were put in this particular order
+        render(){
+            return( 
+                <div>
+                <input id = "inp" onInput={this.Update} type ="number"></input>
+                <br></br>
+                <input id = "inp1" onInput={this.Update2} type ="number"></input>
+                <p id = "p"></p>
+               </div>
+            )
+        }
+
+    }
+ 
+    ReactDOM.render(<App />,document.getElementById('root'))
+    </script>
+</body>
+</html>

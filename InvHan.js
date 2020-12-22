@@ -11,34 +11,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
-    function App() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
+    function App(props) {
         _classCallCheck(this, App);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.AddProduct = function () {
+        _this.AddProduct = function () {
             var AddForm = document.getElementById('AddForm');
             AddForm.hidden === false ? AddForm.hidden = true : AddForm.hidden = false;
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        };
+
+        _this.state = { Total: 's' };
+
+        return _this;
     }
-    // constructor(props){
-    //     super(props);
-    //     const first = document.querySelector('#Totals');
-    //     const th = first.parentElement;
-    //     const th1 = th.previousElementSibling;  
-    //     const Inp1 = th1.firstElementChild;
-    //     const th2 = th1.previousElementSibling;
-    //     // let Inp2 = th2.firstElementChild;
-    //     this.state = {Total1: Inp1.hasAttribute('value') }; 
-
-    // }
-
 
     _createClass(App, [{
         key: 'render',
@@ -130,14 +116,9 @@ var App = function (_React$Component) {
                             ),
                             React.createElement(
                                 'th',
-                                null,
-                                React.createElement(
-                                    'p',
-                                    { id: 'Totals' },
-                                    '$150'
-                                )
-                            ),
-                            ' '
+                                { id: 'th1' },
+                                this.state.Total
+                            )
                         )
                     ),
                     React.createElement('button', { type: 'button', id: 'newElement', onClick: this.AddProduct }),

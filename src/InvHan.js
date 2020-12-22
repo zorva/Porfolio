@@ -1,22 +1,17 @@
 'use strict';
 
 class App extends React.Component{
-    // constructor(props){
-    //     super(props);
-    //     const first = document.querySelector('#Totals');
-    //     const th = first.parentElement;
-    //     const th1 = th.previousElementSibling;  
-    //     const Inp1 = th1.firstElementChild;
-    //     const th2 = th1.previousElementSibling;
-    //     // let Inp2 = th2.firstElementChild;
-    //     this.state = {Total1: Inp1.hasAttribute('value') }; 
-
-    // }
+     constructor(props){
+         super(props);
+         this.state = {Total:'s'}; 
+                       
+     }
+     
     AddProduct=()=>{
       let AddForm = document.getElementById('AddForm')   
       AddForm.hidden === false ? AddForm.hidden = true : AddForm.hidden = false; 
     }
-   render(){
+   render(){    
        return(
            <main>
                <section id="InfoAndSearch">
@@ -40,9 +35,9 @@ class App extends React.Component{
                       <th>Ejemplo Producto</th> {/* prototype product in the inventory */}
                       <th><input type="number"></input></th> 
                       <th>$<input type ="number"></input></th> 
-                      <th><p id ="Totals">$150</p></th> {/*{this.state.Total1}*/}
-                      </tr>
-                      </table> 
+                      <th id ="th1">{this.state.Total}</th>                   
+                      </tr>                
+                      </table>        
                    <button type="button" id="newElement" onClick={this.AddProduct}></button>
                    <label for="newElement" id="LabelButtonAdd">Agrega nueva mercancia!</label>
                    <form id="AddForm" hidden> 
