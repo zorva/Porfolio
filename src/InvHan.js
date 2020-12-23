@@ -2,11 +2,36 @@
 
 class App extends React.Component{
      constructor(props){
-         super(props);
-         this.state = {Total:'s'}; 
+         super(props)
+         this.UpdateProduct = this.UpdateProduct.bind(this)
+         this.UpdateProduct2 = this.UpdateProduct2.bind(this)
+         this.state = {Total1:''}; 
                        
      }
-     
+     UpdateProduct(e){
+         let subP = e.target.value
+         let parent = e.target.parentElement
+         let Nparent = parent.nextElementSibling
+         let subP2 = Nparent.firstElementChild.value
+         const finalP= Number(subP)*Number(subP2)
+         this.setState((state)=>{
+             return({Total1:finalP})
+         })
+
+
+     }
+     UpdateProduct2(e){
+         let subP = e.target.value
+         let parent = e.target.parentElement
+         let Nparent = parent.previousElementSibling
+         let subP2 = Nparent.firstElementChild.value
+         const finalP2= Number(subP)*Number(subP2)
+         this.setState((state)=>{
+             return({Total1:finalP2})
+         })
+
+
+    }
     AddProduct=()=>{
       let AddForm = document.getElementById('AddForm')   
       AddForm.hidden === false ? AddForm.hidden = true : AddForm.hidden = false; 
@@ -33,9 +58,9 @@ class App extends React.Component{
                       <th> valor Total </th></tr>
                       <tr> 
                       <th>Ejemplo Producto</th> {/* prototype product in the inventory */}
-                      <th><input type="number"></input></th> 
-                      <th>$<input type ="number"></input></th> 
-                      <th id ="th1">{this.state.Total}</th>                   
+                      <th><input type="number" onInput={this.UpdateProduct}></input></th> 
+                      <th>$<input type ="number" onInput={this.UpdateProduct2}></input></th> 
+                      <th id ="th1">${this.state.Total1}</th>                   
                       </tr>                
                       </table>        
                    <button type="button" id="newElement" onClick={this.AddProduct}></button>

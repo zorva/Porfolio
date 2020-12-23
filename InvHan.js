@@ -21,12 +21,38 @@ var App = function (_React$Component) {
             AddForm.hidden === false ? AddForm.hidden = true : AddForm.hidden = false;
         };
 
-        _this.state = { Total: 's' };
+        _this.UpdateProduct = _this.UpdateProduct.bind(_this);
+        _this.UpdateProduct2 = _this.UpdateProduct2.bind(_this);
+        _this.state = { Total1: '' };
 
         return _this;
     }
 
     _createClass(App, [{
+        key: 'UpdateProduct',
+        value: function UpdateProduct(e) {
+            var subP = e.target.value;
+            var parent = e.target.parentElement;
+            var Nparent = parent.nextElementSibling;
+            var subP2 = Nparent.firstElementChild.value;
+            var finalP = Number(subP) * Number(subP2);
+            this.setState(function (state) {
+                return { Total1: finalP };
+            });
+        }
+    }, {
+        key: 'UpdateProduct2',
+        value: function UpdateProduct2(e) {
+            var subP = e.target.value;
+            var parent = e.target.parentElement;
+            var Nparent = parent.previousElementSibling;
+            var subP2 = Nparent.firstElementChild.value;
+            var finalP2 = Number(subP) * Number(subP2);
+            this.setState(function (state) {
+                return { Total1: finalP2 };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -106,18 +132,19 @@ var App = function (_React$Component) {
                             React.createElement(
                                 'th',
                                 null,
-                                React.createElement('input', { type: 'number' })
+                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct })
                             ),
                             React.createElement(
                                 'th',
                                 null,
                                 '$',
-                                React.createElement('input', { type: 'number' })
+                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct2 })
                             ),
                             React.createElement(
                                 'th',
                                 { id: 'th1' },
-                                this.state.Total
+                                '$',
+                                this.state.Total1
                             )
                         )
                     ),
