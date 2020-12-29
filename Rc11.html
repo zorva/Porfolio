@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,31 +7,31 @@
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>Tutorial Clock</title>
+    <title>DocumenT</title>
 </head>
 <body>
     <div id="root"></div>
     <script type="text/babel">
-   class Clock extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {date: new Date()};
-  }
+   class ElM extends React.Component {
+       state ={
+           number:10
+       }
+       render(){
+            let Mp = []
+            for(let i = 0;i<this.state.number;i++){
+                Mp.push(
+                    <p>{i}</p>
+                     )
+             }
+           return (
+             Mp
+           ) 
+       }
+       
 
-  render() {
-    return (
-      <div>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
-    );
-  }
-}
+   }
 
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
-setInterval(tick, 1000);
+    ReactDOM.render(<ElM />, document.getElementById('root'))
     </script>
 </body>
 </html>
