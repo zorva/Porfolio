@@ -1,0 +1,60 @@
+#arrow{
+    font-size: 100px;
+    transform: translateY(-55px);
+    color:white;
+    animation-name: moveDown;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    text-align: center;
+    margin: 0 auto;
+}
+#InitialHeader{
+    text-align: center;
+}
+@keyframes moveDown{
+    from{}
+    to{transform: translateY(30px);
+       color: turquoise;
+       text-shadow:10px 5px  black;
+    }
+    
+}
+#wrapper{
+    width: 75vmax;
+    height: 100vmax;
+    background-image: url(
+        https://i.pinimg.com/originals/13/8c/70/138c7019d27f74c0efc11be0786e1cb8.jpg);
+    margin: 0 auto;
+    border: solid 1px black;
+    border-radius: 5%;
+    box-shadow: 10px 5px black;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+#rightLeft{
+    width: 20vmax;
+    height: 100%;
+  background-image: url(
+    https://img.freepik.com/free-photo/gold-fabric-cloth-background-texture_49683-3812.jpg?size=626&ext=jpg);
+  margin: 0 auto;
+}
+#upDown{
+    width: 100%;
+    height: 15vmax;
+    background-image: url(
+        https://img.freepik.com/free-photo/gold-fabric-cloth-background-texture_49683-3812.jpg?size=626&ext=jpg);
+    margin: 0 auto;
+    transform: translateY(-75vmax);
+}
+#gift{
+    width: 75vmax;
+    height: 100vmax;
+    border: black 1px solid;
+    border-radius: 5%;
+    margin: 0 auto;
+}
+#whiteSpace{
+    padding: 80px;
+}
+

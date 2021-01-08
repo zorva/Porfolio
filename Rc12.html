@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    function Storage(props){
+        let myStorage = Array.from(window.localStorage)
+        let NewItem = (e)=>{
+            let inp = document.querySelector(`.Inp`)
+            window.localStorage.setItem(String(inp.id),String(Number(inp.id)+1))
+            inp.id = String(Number(inp.id)+1)
+            console.log(Array.from(window.localStorage))
+            console.log(inp)
+        }
+       
+        return <div><h1>{myStorage.length}</h1>
+              <input type="text" id ={myStorage.length} className = "Inp"></input>
+              <button onClick ={NewItem}>Click</button>
+            </div>
+    }
+    let element = <Storage/> 
+    ReactDOM.render(element,document.getElementById('root'))
+    </script>
+</body>
+</html>

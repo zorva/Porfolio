@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="styles/3style.css">
+    <title>...../...../</title>
+</head>
+<body>
+   <div id ="root"></div>
+   <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>  
+   <script type="text/babel">
+    function BirthDay(props){
+        function hidde(){
+            let wrapper = document.getElementById('wrapper')
+            let gift = document.getElementById('gift')
+            let arrow = document.getElementById('arrow')
+            let header = document.getElementById('InitialHeader') 
+            let hidWrapper = document.getElementById('hidWrapper')
+            wrapper.hidden = true
+            arrow.hidden = true
+            header.hidden = true
+            hidWrapper.hidden = false
+        }
+        function Confetti(){
+            confetti.start(3000);
+        }
+        function onClick(){
+            hidde()
+            Confetti()
+        }
+        return(
+            <main className ="container">
+              <h1 id = "InitialHeader" >Click your gift!</h1>
+              <div id ="arrow">▼</div>
+              <div id ="wrapper" onClick={onClick}>
+              <div id ="rightLeft"></div>
+              <div id ="upDown"></div>
+              </div>
+              <div id="hidWrapper" hidden>
+              <h1 id="whiteSpace"></h1>
+              <div id="gift"></div>
+              </div>
+            </main>
+        )
+    }
+    let card = <BirthDay/>
+    ReactDOM.render(card,document.getElementById('root'))
+</script> 
+</body>
+</html>

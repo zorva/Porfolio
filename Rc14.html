@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class Comp extends React.Component{
+        SubmitData(){
+            let inp = document.getElementById('source')
+            let myStorage = window.localStorage
+            let arStorage = Array.from(myStorage)
+            myStorage.setItem(`${arStorage.length+1}`,inp.value)
+            console.log(myStorage)
+        }
+        LoadData(){
+            let inp = document.getElementById('LoadPlace')
+            let inp2 = document.getElementById('source')
+            let myStorage = window.localStorage
+            let source = myStorage.getItem(inp.value)
+            inp2.value = source
+        }
+        render(){
+            return(<div>
+                <input type="text" id ="source"></input>
+                <button onClick={this.SubmitData}>Submit</button><br></br>
+                <input type="text" id ="LoadPlace"></input>
+                <button onClick={this.LoadData}>Download</button>
+                </div>)
+        }
+    }
+    ReactDOM.render(<Comp/>,document.getElementById('root'))
+    </script>
+</body>
+</html>

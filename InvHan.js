@@ -17,13 +17,31 @@ var App = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.AddProduct = function () {
-            var AddForm = document.getElementById('AddForm');
-            AddForm.hidden === false ? AddForm.hidden = true : AddForm.hidden = false;
+            var table = document.getElementById('mainTable');
+            var tr = document.createElement('tr');
+            var trArray = [];
+            for (var i = 0; i < 7; i++) {
+                trArray.push(document.createElement('th'));
+            }
+            for (var _i in trArray) {
+                trArray[_i].append(document.createElement('input'));
+                tr.append(trArray[_i]);
+            }
+            tr.setAttribute('id', "0");
+            for (var _i2 = 0; _i2 < 2; _i2++) {
+                trArray[_i2].setAttribute('type', 'text');
+            }
+            for (var _i3 = 2; _i3 < trArray.length - 2; _i3++) {
+                trArray[_i3].setAttribute('type', 'number');
+            }
+            table.append(tr);
+            console.log(tr);
         };
 
         _this.UpdateProduct = _this.UpdateProduct.bind(_this);
         _this.UpdateProduct2 = _this.UpdateProduct2.bind(_this);
-        _this.state = { Total1: '' };
+        _this.UpdateProduct3 = _this.UpdateProduct3.bind(_this);
+        _this.state = { Total1: '', Total2: '' };
 
         return _this;
     }
@@ -34,10 +52,16 @@ var App = function (_React$Component) {
             var subP = e.target.value;
             var parent = e.target.parentElement;
             var Nparent = parent.nextElementSibling;
+            var N2parent = Nparent.nextElementSibling;
+            var subP3 = N2parent.firstElementChild.value;
             var subP2 = Nparent.firstElementChild.value;
             var finalP = Number(subP) * Number(subP2);
+            var finalP2 = Number(subP) * Number(subP3);
             this.setState(function (state) {
                 return { Total1: finalP };
+            });
+            this.setState(function (state) {
+                return { Total2: finalP2 };
             });
         }
     }, {
@@ -50,6 +74,19 @@ var App = function (_React$Component) {
             var finalP2 = Number(subP) * Number(subP2);
             this.setState(function (state) {
                 return { Total1: finalP2 };
+            });
+        }
+    }, {
+        key: 'UpdateProduct3',
+        value: function UpdateProduct3(e) {
+            var subP = e.target.value;
+            var parent = e.target.parentElement;
+            var Nparent = parent.previousElementSibling;
+            var N2parent = Nparent.previousElementSibling;
+            var subP2 = N2parent.firstElementChild.value;
+            var finalP = Number(subP) * Number(subP2);
+            this.setState(function (state) {
+                return { Total2: finalP };
             });
         }
     }, {
@@ -107,28 +144,47 @@ var App = function (_React$Component) {
                             React.createElement(
                                 'th',
                                 null,
-                                ' Cantidad por unidad '
+                                'id'
                             ),
                             React.createElement(
                                 'th',
                                 null,
-                                ' Precio por unidad '
+                                'Cantidad por unidad '
                             ),
                             React.createElement(
                                 'th',
                                 null,
-                                ' valor Total '
+                                'Precio afiliado '
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                'Precio publico'
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                'Costo Total'
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                'Valor Total(publico)'
                             )
                         ),
                         React.createElement(
                             'tr',
-                            null,
+                            { id: '1' },
                             React.createElement(
                                 'th',
                                 null,
-                                'Ejemplo Producto'
+                                React.createElement('input', { type: 'text' })
                             ),
-                            ' ',
+                            React.createElement(
+                                'th',
+                                null,
+                                React.createElement('input', { type: 'text' })
+                            ),
                             React.createElement(
                                 'th',
                                 null,
@@ -137,14 +193,24 @@ var App = function (_React$Component) {
                             React.createElement(
                                 'th',
                                 null,
-                                '$',
                                 React.createElement('input', { type: 'number', onInput: this.UpdateProduct2 })
                             ),
                             React.createElement(
                                 'th',
-                                { id: 'th1' },
+                                null,
+                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct3 })
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
                                 '$',
                                 this.state.Total1
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                '$',
+                                this.state.Total2
                             )
                         )
                     ),
@@ -153,36 +219,6 @@ var App = function (_React$Component) {
                         'label',
                         { 'for': 'newElement', id: 'LabelButtonAdd' },
                         'Agrega nueva mercancia!'
-                    ),
-                    React.createElement(
-                        'form',
-                        { id: 'AddForm', hidden: true },
-                        React.createElement('input', { id: 'name' }),
-                        React.createElement(
-                            'label',
-                            { 'for': 'name', className: 'FormLabels' },
-                            'Nombre'
-                        ),
-                        React.createElement('br', null),
-                        React.createElement('input', { id: 'units' }),
-                        React.createElement(
-                            'label',
-                            { 'for': 'units', className: 'FormLabels' },
-                            'Cantidad'
-                        ),
-                        React.createElement('br', null),
-                        React.createElement('input', { id: 'value' }),
-                        React.createElement(
-                            'label',
-                            { 'for': 'value', className: 'FormLabels' },
-                            'Precio unitario'
-                        ),
-                        React.createElement('br', null),
-                        React.createElement(
-                            'button',
-                            { type: 'button' },
-                            'Crear!'
-                        )
                     )
                 )
             );
