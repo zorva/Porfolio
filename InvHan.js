@@ -18,12 +18,12 @@ function Item(props) {
             React.createElement(
                 "th",
                 null,
-                React.createElement("input", { type: "text" })
+                React.createElement("input", { type: "text", onInput: props.UpdateStorage })
             ),
             React.createElement(
                 "th",
                 null,
-                React.createElement("input", { type: "text" })
+                React.createElement("input", { type: "text", onInput: props.UpdateStorage2 })
             ),
             React.createElement(
                 "th",
@@ -72,8 +72,38 @@ var App = function (_React$Component) {
     }
 
     _createClass(App, [{
+        key: "UpdateStorage",
+        value: function UpdateStorage(e) {
+            var Storage = window.localStorage;
+            var Id = e.target.parentElement.parentElement.getAttribute('id');
+            var storageName = e.target.value;
+            var nextParent = e.target.parentElement.nextElementSibling;
+            var storageId = nextParent.firstElementChild.value;
+            var storageItems = nextParent.nextElementSibling.firstElementChild.value;
+            var storagePrice = nextParent.nextElementSibling.nextElementSibling.firstElementChild.value;
+            var storagePrice2 = nextParent.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value;
+            var storageString = storageName + " " + storageId + " " + storageItems + " " + storagePrice + " " + storagePrice2;
+            Storage.setItem(Id, storageString);
+        }
+    }, {
+        key: "UpdateStorage2",
+        value: function UpdateStorage2(e) {
+            var Storage = window.localStorage;
+            var Id = e.target.parentElement.parentElement.getAttribute('id');
+            var storageName = e.target.parentElement.previousElementSibling.firstElementChild.value;
+            var nextParent = e.target.parentElement.nextElementSibling;
+            var storageId = e.target.value;
+            var storageItems = nextParent.firstElementChild.value;
+            var storagePrice = nextParent.nextElementSibling.firstElementChild.value;
+            var storagePrice2 = nextParent.nextElementSibling.nextElementSibling.firstElementChild.value;
+            var storageString = storageName + " " + storageId + " " + storageItems + " " + storagePrice + " " + storagePrice2;
+            Storage.setItem(Id, storageString);
+        }
+    }, {
         key: "UpdateProduct",
         value: function UpdateProduct(e) {
+            var Storage = window.localStorage;
+            var Id = e.target.parentElement.parentElement.getAttribute('id');
             var subP = e.target.value;
             var parent = e.target.parentElement;
             var Nparent = parent.nextElementSibling;
@@ -82,6 +112,10 @@ var App = function (_React$Component) {
             var N4parent = N3parent.nextElementSibling;
             var subP3 = N2parent.firstElementChild.value;
             var subP2 = Nparent.firstElementChild.value;
+            var storageId = parent.previousElementSibling.firstElementChild.value;
+            var storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value;
+            var storageString = storageName + " " + storageId + " " + subP + " " + subP2 + " " + subP3;
+            Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
             var finalP2 = Number(subP) * Number(subP3);
             N3parent.firstElementChild.setAttribute('value', finalP);
@@ -90,23 +124,37 @@ var App = function (_React$Component) {
     }, {
         key: "UpdateProduct2",
         value: function UpdateProduct2(e) {
+            var Storage = window.localStorage;
+            var Id = e.target.parentElement.parentElement.getAttribute('id');
             var subP = e.target.value;
             var parent = e.target.parentElement;
             var N2parent = parent.nextElementSibling;
             var N3parent = N2parent.nextElementSibling;
             var Nparent = parent.previousElementSibling;
             var subP2 = Nparent.firstElementChild.value;
+            var storageId = Nparent.previousElementSibling.firstElementChild.value;
+            var storageName = Nparent.previousElementSibling.previousElementSibling.firstElementChild.value;
+            var subP3 = N2parent.firstElementChild.value;
+            var storageString = storageName + " " + storageId + " " + subP2 + " " + subP + " " + subP3;
+            Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
             N3parent.firstElementChild.setAttribute('value', finalP);
         }
     }, {
         key: "UpdateProduct3",
         value: function UpdateProduct3(e) {
+            var Storage = window.localStorage;
+            var Id = e.target.parentElement.parentElement.getAttribute('id');
             var subP = e.target.value;
             var parent = e.target.parentElement;
             var Nparent = parent.previousElementSibling;
             var N2parent = Nparent.previousElementSibling;
             var subP2 = N2parent.firstElementChild.value;
+            var subP3 = Nparent.firstElementChild.value;
+            var storageId = N2parent.previousElementSibling.firstElementChild.value;
+            var storageName = N2parent.previousElementSibling.previousElementSibling.firstElementChild.value;
+            var storageString = storageName + " " + storageId + " " + subP2 + " " + subP3 + " " + subP;
+            Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
             var N3parent = parent.nextElementSibling.nextElementSibling;
             N3parent.firstElementChild.setAttribute('value', finalP);
@@ -117,6 +165,7 @@ var App = function (_React$Component) {
             var table = document.getElementById('mainTable');
             var Item = document.getElementById("InitialRenderingContainer");
             var container = table.lastElementChild;
+            var Storage = window.localStorage;
             var startingPoint = void 0;
             var newId = void 0;
             var firstId = void 0;
@@ -127,6 +176,7 @@ var App = function (_React$Component) {
                 firstId = startingPoint.lastElementChild.getAttribute('id');
                 newId = 'N' + String(Number(firstId[1]) + 1);
             }
+            Storage.setItem(newId, '');
             var UpdateProduct = function UpdateProduct(e) {
                 var subP = e.target.value;
                 var parent = e.target.parentElement;
@@ -136,6 +186,10 @@ var App = function (_React$Component) {
                 var N4parent = N3parent.nextElementSibling;
                 var subP3 = N2parent.firstElementChild.value;
                 var subP2 = Nparent.firstElementChild.value;
+                var storageId = parent.previousElementSibling.firstElementChild.value;
+                var storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value;
+                var storageString = storageName + " " + storageId + " " + subP + " " + subP2 + " " + subP3;
+                Storage.setItem(newId, storageString);
                 var finalP = Number(subP) * Number(subP2);
                 var finalP2 = Number(subP) * Number(subP3);
                 N3parent.firstElementChild.setAttribute('value', finalP);
@@ -148,6 +202,11 @@ var App = function (_React$Component) {
                 var N3parent = N2parent.nextElementSibling;
                 var Nparent = parent.previousElementSibling;
                 var subP2 = Nparent.firstElementChild.value;
+                var storageId = Nparent.previousElementSibling.firstElementChild.value;
+                var storageName = Nparent.previousElementSibling.previousElementSibling.firstElementChild.value;
+                var subP3 = N2parent.firstElementChild.value;
+                var storageString = storageName + " " + storageId + " " + subP2 + " " + subP + " " + subP3;
+                Storage.setItem(newId, storageString);
                 var finalP = Number(subP) * Number(subP2);
                 N3parent.firstElementChild.setAttribute('value', finalP);
             };
@@ -157,9 +216,34 @@ var App = function (_React$Component) {
                 var Nparent = parent.previousElementSibling;
                 var N2parent = Nparent.previousElementSibling;
                 var subP2 = N2parent.firstElementChild.value;
+                var subP3 = Nparent.firstElementChild.value;
+                var storageId = N2parent.previousElementSibling.firstElementChild.value;
+                var storageName = N2parent.previousElementSibling.previousElementSibling.firstElementChild.value;
+                var storageString = storageName + " " + storageId + " " + subP2 + " " + subP3 + " " + subP;
+                Storage.setItem(newId, storageString);
                 var finalP = Number(subP) * Number(subP2);
                 var N3parent = parent.nextElementSibling.nextElementSibling;
                 N3parent.firstElementChild.setAttribute('value', finalP);
+            };
+            var UpdateStorage = function UpdateStorage(e) {
+                var storageName = e.target.value;
+                var nextParent = e.target.parentElement.nextElementSibling;
+                var storageId = nextParent.firstElementChild.value;
+                var storageItems = nextParent.nextElementSibling.firstElementChild.value;
+                var storagePrice = nextParent.nextElementSibling.nextElementSibling.firstElementChild.value;
+                var storagePrice2 = nextParent.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value;
+                var storageString = storageName + " " + storageId + " " + storageItems + " " + storagePrice + " " + storagePrice2;
+                Storage.setItem(newId, storageString);
+            };
+            var UpdateStorage2 = function UpdateStorage2(e) {
+                var storageName = e.target.parentElement.previousElementSibling.firstElementChild.value;
+                var nextParent = e.target.parentElement.nextElementSibling;
+                var storageId = e.target.value;
+                var storageItems = nextParent.firstElementChild.value;
+                var storagePrice = nextParent.nextElementSibling.firstElementChild.value;
+                var storagePrice2 = nextParent.nextElementSibling.nextElementSibling.firstElementChild.value;
+                var storageString = storageName + " " + storageId + " " + storageItems + " " + storagePrice + " " + storagePrice2;
+                Storage.setItem(newId, storageString);
             };
             var elm = React.createElement(
                 "tr",
@@ -167,12 +251,12 @@ var App = function (_React$Component) {
                 React.createElement(
                     "th",
                     null,
-                    React.createElement("input", { type: "text" })
+                    React.createElement("input", { type: "text", onInput: UpdateStorage })
                 ),
                 React.createElement(
                     "th",
                     null,
-                    React.createElement("input", { type: "text" })
+                    React.createElement("input", { type: "text", onInput: UpdateStorage2 })
                 ),
                 React.createElement(
                     "th",
@@ -204,7 +288,74 @@ var App = function (_React$Component) {
             ReactDOM.render(elm, container);
             var NewContainer = document.createElement('tbody');
             table.append(NewContainer);
-            console.log(table);
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var InitialTable = document.getElementById("InitialRenderingContainer");
+            var Storage = window.localStorage;
+            if (Array.from(Storage).length === 0) {
+                null;
+            } else {
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = Array.from(InitialTable.children)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var i = _step.value;
+
+                        var key = i.id;
+                        var RawData = Array.from(Storage.getItem(key));
+                        var Arrdata = [];
+                        var CompVar = ' ';
+                        var _iteratorNormalCompletion2 = true;
+                        var _didIteratorError2 = false;
+                        var _iteratorError2 = undefined;
+
+                        try {
+                            for (var _iterator2 = RawData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                var j = _step2.value;
+
+                                var TemporalGatherer = '';
+                                j === CompVar ? (Arrdata.push(TemporalGatherer), console.log(TemporalGatherer), TemporalGatherer = '') : TemporalGatherer += j;
+                            }
+                        } catch (err) {
+                            _didIteratorError2 = true;
+                            _iteratorError2 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                    _iterator2.return();
+                                }
+                            } finally {
+                                if (_didIteratorError2) {
+                                    throw _iteratorError2;
+                                }
+                            }
+                        }
+
+                        for (var e = 0; e < 5; e++) {
+                            var destination = Array.from(i.children)[e].firstElementChild;
+                            destination.value = Arrdata[e];
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }
+            console.log(Array.from(InitialTable.children[0].children)[0]);
         }
     }, {
         key: "render",
@@ -297,7 +448,8 @@ var App = function (_React$Component) {
                             "tbody",
                             { id: "InitialRenderingContainer" },
                             React.createElement(Item, { Storage: this.state.Storage, UpdateProduct: this.UpdateProduct,
-                                UpdateProduct2: this.UpdateProduct2, UpdateProduct3: this.UpdateProduct3 })
+                                UpdateProduct2: this.UpdateProduct2, UpdateProduct3: this.UpdateProduct3,
+                                UpdateStorage: this.UpdateStorage, UpdateStorage2: this.UpdateStorage2 })
                         ),
                         React.createElement("tbody", null)
                     ),
