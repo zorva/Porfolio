@@ -8,6 +8,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function Item(props) {
+    var arr = Array.from(props.Storage);
+    var arr2 = [];
+    for (var i in arr) {
+        arr2.push(React.createElement(
+            "tr",
+            { id: "N" + i },
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", { type: "text" })
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", { type: "text" })
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", { type: "number", onInput: props.UpdateProduct })
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", { type: "number", onInput: props.UpdateProduct2 })
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", { type: "number", onInput: props.UpdateProduct3 })
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", null)
+            ),
+            React.createElement(
+                "th",
+                null,
+                React.createElement("input", null)
+            )
+        ));
+    }
+    return arr2;
+}
+
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
@@ -16,68 +63,44 @@ var App = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.AddProduct = function () {
-            var table = document.getElementById('mainTable');
-            var tr = document.createElement('tr');
-            var trArray = [];
-            for (var i = 0; i < 7; i++) {
-                trArray.push(document.createElement('th'));
-            }
-            for (var _i in trArray) {
-                trArray[_i].append(document.createElement('input'));
-                tr.append(trArray[_i]);
-            }
-            tr.setAttribute('id', "0");
-            for (var _i2 = 0; _i2 < 2; _i2++) {
-                trArray[_i2].setAttribute('type', 'text');
-            }
-            for (var _i3 = 2; _i3 < trArray.length - 2; _i3++) {
-                trArray[_i3].setAttribute('type', 'number');
-            }
-            table.append(tr);
-            console.log(tr);
-        };
-
         _this.UpdateProduct = _this.UpdateProduct.bind(_this);
         _this.UpdateProduct2 = _this.UpdateProduct2.bind(_this);
         _this.UpdateProduct3 = _this.UpdateProduct3.bind(_this);
-        _this.state = { Total1: '', Total2: '' };
-
+        _this.AddProduct = _this.AddProduct.bind(_this);
+        _this.state = { Storage: localStorage };
         return _this;
     }
 
     _createClass(App, [{
-        key: 'UpdateProduct',
+        key: "UpdateProduct",
         value: function UpdateProduct(e) {
             var subP = e.target.value;
             var parent = e.target.parentElement;
             var Nparent = parent.nextElementSibling;
             var N2parent = Nparent.nextElementSibling;
+            var N3parent = N2parent.nextElementSibling;
+            var N4parent = N3parent.nextElementSibling;
             var subP3 = N2parent.firstElementChild.value;
             var subP2 = Nparent.firstElementChild.value;
             var finalP = Number(subP) * Number(subP2);
             var finalP2 = Number(subP) * Number(subP3);
-            this.setState(function (state) {
-                return { Total1: finalP };
-            });
-            this.setState(function (state) {
-                return { Total2: finalP2 };
-            });
+            N3parent.firstElementChild.setAttribute('value', finalP);
+            N4parent.firstElementChild.setAttribute('value', finalP2);
         }
     }, {
-        key: 'UpdateProduct2',
+        key: "UpdateProduct2",
         value: function UpdateProduct2(e) {
             var subP = e.target.value;
             var parent = e.target.parentElement;
+            var N2parent = parent.nextElementSibling;
+            var N3parent = N2parent.nextElementSibling;
             var Nparent = parent.previousElementSibling;
             var subP2 = Nparent.firstElementChild.value;
-            var finalP2 = Number(subP) * Number(subP2);
-            this.setState(function (state) {
-                return { Total1: finalP2 };
-            });
+            var finalP = Number(subP) * Number(subP2);
+            N3parent.firstElementChild.setAttribute('value', finalP);
         }
     }, {
-        key: 'UpdateProduct3',
+        key: "UpdateProduct3",
         value: function UpdateProduct3(e) {
             var subP = e.target.value;
             var parent = e.target.parentElement;
@@ -85,140 +108,204 @@ var App = function (_React$Component) {
             var N2parent = Nparent.previousElementSibling;
             var subP2 = N2parent.firstElementChild.value;
             var finalP = Number(subP) * Number(subP2);
-            this.setState(function (state) {
-                return { Total2: finalP };
-            });
+            var N3parent = parent.nextElementSibling.nextElementSibling;
+            N3parent.firstElementChild.setAttribute('value', finalP);
         }
     }, {
-        key: 'render',
+        key: "AddProduct",
+        value: function AddProduct(e) {
+            var table = document.getElementById('mainTable');
+            var Item = document.getElementById("InitialRenderingContainer");
+            var container = table.lastElementChild;
+            var startingPoint = void 0;
+            var newId = void 0;
+            var firstId = void 0;
+            if (Item.childElementCount === 0) {
+                container.previousElementSibling === Item ? newId = 'N0' : (firstId = container.previousElementSibling.lastElementChild.getAttribute('id'), newId = 'N' + String(Number(firstId[1]) + 1));
+            } else {
+                startingPoint = container.previousElementSibling;
+                firstId = startingPoint.lastElementChild.getAttribute('id');
+                newId = 'N' + String(Number(firstId[1]) + 1);
+            }
+            var UpdateProduct = function UpdateProduct(e) {
+                var subP = e.target.value;
+                var parent = e.target.parentElement;
+                var Nparent = parent.nextElementSibling;
+                var N2parent = Nparent.nextElementSibling;
+                var N3parent = N2parent.nextElementSibling;
+                var N4parent = N3parent.nextElementSibling;
+                var subP3 = N2parent.firstElementChild.value;
+                var subP2 = Nparent.firstElementChild.value;
+                var finalP = Number(subP) * Number(subP2);
+                var finalP2 = Number(subP) * Number(subP3);
+                N3parent.firstElementChild.setAttribute('value', finalP);
+                N4parent.firstElementChild.setAttribute('value', finalP2);
+            };
+            var UpdateProduct2 = function UpdateProduct2(e) {
+                var subP = e.target.value;
+                var parent = e.target.parentElement;
+                var N2parent = parent.nextElementSibling;
+                var N3parent = N2parent.nextElementSibling;
+                var Nparent = parent.previousElementSibling;
+                var subP2 = Nparent.firstElementChild.value;
+                var finalP = Number(subP) * Number(subP2);
+                N3parent.firstElementChild.setAttribute('value', finalP);
+            };
+            var UpdateProduct3 = function UpdateProduct3(e) {
+                var subP = e.target.value;
+                var parent = e.target.parentElement;
+                var Nparent = parent.previousElementSibling;
+                var N2parent = Nparent.previousElementSibling;
+                var subP2 = N2parent.firstElementChild.value;
+                var finalP = Number(subP) * Number(subP2);
+                var N3parent = parent.nextElementSibling.nextElementSibling;
+                N3parent.firstElementChild.setAttribute('value', finalP);
+            };
+            var elm = React.createElement(
+                "tr",
+                { id: newId },
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", { type: "text" })
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", { type: "text" })
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", { type: "number", onInput: UpdateProduct
+                    })
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", { type: "number", onInput: UpdateProduct2 })
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", { type: "number", onInput: UpdateProduct3 })
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", null)
+                ),
+                React.createElement(
+                    "th",
+                    null,
+                    React.createElement("input", null)
+                )
+            );
+            ReactDOM.render(elm, container);
+            var NewContainer = document.createElement('tbody');
+            table.append(NewContainer);
+            console.log(table);
+        }
+    }, {
+        key: "render",
         value: function render() {
             return React.createElement(
-                'main',
+                "main",
                 null,
                 React.createElement(
-                    'section',
-                    { id: 'InfoAndSearch' },
+                    "section",
+                    { id: "InfoAndSearch" },
                     React.createElement(
-                        'h1',
-                        { id: 'mainInfo' },
-                        'El valor total del inventario es ',
+                        "h1",
+                        { id: "mainInfo" },
+                        "El valor total del inventario es ",
                         React.createElement(
-                            'span',
-                            { id: 'ElementsValue' },
-                            '$0'
+                            "span",
+                            { id: "ElementsValue" },
+                            "$0"
                         ),
-                        ' y contiene',
+                        " y contiene",
                         React.createElement(
-                            'span',
-                            { id: 'ElementsNumber' },
-                            ' 0'
+                            "span",
+                            { id: "ElementsNumber" },
+                            " 0"
                         ),
-                        ' productos'
+                        " productos"
                     ),
                     React.createElement(
-                        'form',
-                        { id: 'Searcher' },
-                        React.createElement('input', { type: 'text', id: 'Search' }),
+                        "form",
+                        { id: "Searcher" },
+                        React.createElement("input", { type: "text", id: "Search" }),
                         React.createElement(
-                            'label',
-                            { 'for': 'Search' },
-                            'Busca productos'
+                            "label",
+                            { htmlFor: "Search" },
+                            "Busca productos"
                         )
                     )
                 ),
-                React.createElement('br', null),
+                React.createElement("br", null),
                 React.createElement(
-                    'section',
-                    { id: 'InformationSource' },
+                    "section",
+                    { id: "InformationSource" },
                     React.createElement(
-                        'table',
-                        { id: 'mainTable' },
+                        "table",
+                        { id: "mainTable" },
                         React.createElement(
-                            'tr',
+                            "thead",
                             null,
                             React.createElement(
-                                'th',
+                                "tr",
                                 null,
-                                'Nombre '
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'id'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Cantidad por unidad '
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Precio afiliado '
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Precio publico'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Costo Total'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Valor Total(publico)'
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Nombre "
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "id"
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Cantidad por unidad "
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Precio afiliado "
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Precio publico"
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Costo Total"
+                                ),
+                                React.createElement(
+                                    "th",
+                                    null,
+                                    "Valor Total(publico)"
+                                )
                             )
                         ),
                         React.createElement(
-                            'tr',
-                            { id: '1' },
-                            React.createElement(
-                                'th',
-                                null,
-                                React.createElement('input', { type: 'text' })
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                React.createElement('input', { type: 'text' })
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct })
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct2 })
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                React.createElement('input', { type: 'number', onInput: this.UpdateProduct3 })
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                '$',
-                                this.state.Total1
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                '$',
-                                this.state.Total2
-                            )
-                        )
+                            "tbody",
+                            { id: "InitialRenderingContainer" },
+                            React.createElement(Item, { Storage: this.state.Storage, UpdateProduct: this.UpdateProduct,
+                                UpdateProduct2: this.UpdateProduct2, UpdateProduct3: this.UpdateProduct3 })
+                        ),
+                        React.createElement("tbody", null)
                     ),
-                    React.createElement('button', { type: 'button', id: 'newElement', onClick: this.AddProduct }),
+                    React.createElement("button", { type: "button", id: "newElement", onClick: this.AddProduct }),
                     React.createElement(
-                        'label',
-                        { 'for': 'newElement', id: 'LabelButtonAdd' },
-                        'Agrega nueva mercancia!'
+                        "label",
+                        { htmlFor: "newElement", id: "LabelButtonAdd" },
+                        "Agrega nueva mercancia!"
                     )
                 )
             );
