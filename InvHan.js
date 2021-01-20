@@ -297,65 +297,49 @@ var App = function (_React$Component) {
             if (Array.from(Storage).length === 0) {
                 null;
             } else {
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
+                for (var i = 0; i < Storage.length; i++) {
+                    var key = Storage.key(i);
+                    var RawData = Storage.getItem(key);
+                    var parent = document.getElementById(key);
+                    var inputs = Array.from(parent.children);
+                    var InpEvent = new Event('input', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': false
+                    });
+                    var finalData = [''];
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
 
-                try {
-                    for (var _iterator = Array.from(InitialTable.children)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var i = _step.value;
-
-                        var key = i.id;
-                        var RawData = Array.from(Storage.getItem(key));
-                        var Arrdata = [];
-                        var CompVar = ' ';
-                        var _iteratorNormalCompletion2 = true;
-                        var _didIteratorError2 = false;
-                        var _iteratorError2 = undefined;
-
-                        try {
-                            for (var _iterator2 = RawData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                                var j = _step2.value;
-
-                                var TemporalGatherer = '';
-                                j === CompVar ? (Arrdata.push(TemporalGatherer), console.log(TemporalGatherer), TemporalGatherer = '') : TemporalGatherer += j;
-                            }
-                        } catch (err) {
-                            _didIteratorError2 = true;
-                            _iteratorError2 = err;
-                        } finally {
-                            try {
-                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                                    _iterator2.return();
-                                }
-                            } finally {
-                                if (_didIteratorError2) {
-                                    throw _iteratorError2;
-                                }
-                            }
-                        }
-
-                        for (var e = 0; e < 5; e++) {
-                            var destination = Array.from(i.children)[e].firstElementChild;
-                            destination.value = Arrdata[e];
-                        }
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
                     try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
+                        for (var _iterator = Array.from(RawData)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var e = _step.value;
+
+                            e !== ' ' ? finalData[finalData.length - 1] += e : finalData.push('');
                         }
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
                     } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
                         }
                     }
+
+                    for (var j = 0; j < 5; j++) {
+                        inputs[j].firstElementChild.value = finalData[j];
+                        inputs[j].firstElementChild.dispatchEvent(InpEvent);
+                    }
+                    console.log(finalData);
                 }
             }
-            console.log(Array.from(InitialTable.children[0].children)[0]);
         }
     }, {
         key: "render",
@@ -420,7 +404,7 @@ var App = function (_React$Component) {
                                 React.createElement(
                                     "th",
                                     null,
-                                    "Cantidad por unidad "
+                                    "Cantidad"
                                 ),
                                 React.createElement(
                                     "th",

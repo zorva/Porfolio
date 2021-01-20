@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="root2"></div>
+    <script type="text/babel">
+    class ReceptorComponent extends React.Component{
+        constructor(props){
+            super(props)
+            this.fixData = this.fixData.bind(this)
+            this.state ={DisplayedText:''}
+        }
+        fixData(e){
+           const val = e.target.value
+           this.setState((state)=>{
+             return {DisplayedText:val}
+           })
+        }
+        render(){
+            return(
+                <div>
+                    <input id ="Receptor"type="text" hidden onInput={this.fixData}></input>
+                    <h1>{this.state.DisplayedText}</h1>
+                    </div>
+            )
+        }
+    }
+    ReactDOM.render(<ReceptorComponent/>,document.getElementById('root'))
+    function Transmisor(props){
+        function Send(e){
+            let Receptor = document.getElementById('Receptor')
+            let InpEvent = new Event('input',{
+                'view': window, 
+                'bubbles': true, 
+                'cancelable': false
+            })
+            Receptor.value = e.target.value 
+            Receptor.dispatchEvent(InpEvent)
+        }
+        return(
+            <input type="text" id = "inp" onInput={Send}></input>
+        )
+    }
+    ReactDOM.render(<Transmisor/>,document.getElementById('root2'))
+    </script>
+</body>
+</html>

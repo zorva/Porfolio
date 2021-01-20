@@ -214,23 +214,28 @@ class App extends React.Component{
         if(Array.from(Storage).length === 0){
           null
         }else{
-            for(let i of Array.from(InitialTable.children)){
-              let key = i.id
-              let RawData = Array.from(Storage.getItem(key))
-              let Arrdata =[]
-              let CompVar =' '
-              for(let j of RawData){
-                let TemporalGatherer =''
-                j===CompVar?(Arrdata.push(TemporalGatherer),console.log(TemporalGatherer),TemporalGatherer=''):TemporalGatherer+=j
-            }
-                 for(let e =0;e<5;e++){
-                       let destination = Array.from(i.children)[e].firstElementChild
-                       destination.value = Arrdata[e]
-                 }
+            for(let i =0;i<Storage.length;i++){
+                 let key =  Storage.key(i)
+                 let RawData =Storage.getItem(key)
+                 let parent = document.getElementById(key)
+                 let inputs = Array.from(parent.children)
+                 let InpEvent = new Event('input',{
+                    'view': window, 
+                    'bubbles': true, 
+                    'cancelable': false
+                   })
+                let finalData = ['']
+                for(let e of Array.from(RawData)){
+                    e!==' '?finalData[finalData.length-1]+=e:finalData.push('')
+                }
+                for(let j=0;j<5;j++){
+                    inputs[j].firstElementChild.value =finalData[j]
+                    inputs[j].firstElementChild.dispatchEvent(InpEvent)
+
+                }
+                console.log(finalData)
              }
         }
-      console.log(Array.from(InitialTable.children[0].children)[0])
-        
     }
    render(){
        return(
@@ -251,7 +256,7 @@ class App extends React.Component{
                    <tr>
                      <th>Nombre </th> 
                      <th>id</th>
-                     <th>Cantidad por unidad </th> 
+                     <th>Cantidad</th> 
                       <th>Precio afiliado </th>
                       <th>Precio publico</th> 
                       <th>Costo Total</th>
