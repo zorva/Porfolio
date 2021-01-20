@@ -9,8 +9,8 @@ function Item(props){
         <th><input type="number" onInput={props.UpdateProduct}></input></th> 
         <th><input type ="number" onInput={props.UpdateProduct2}></input></th>
         <th><input type="number" onInput={props.UpdateProduct3}></input></th>   
-        <th><input></input></th>  
-        <th><input></input></th>               
+        <th><input type="number"></input></th>  
+        <th><input type="number"></input></th>               
         </tr>)
     }
     return arr2
@@ -23,7 +23,11 @@ class App extends React.Component{
          this.UpdateProduct2 = this.UpdateProduct2.bind(this)
          this.UpdateProduct3 = this.UpdateProduct3.bind(this)
          this.AddProduct = this.AddProduct.bind(this)
-         this.state ={Storage:localStorage}
+         this.addCost = this.addCost.bind(this)
+         this.addVal = this.addVal.bind(this)
+         this.SubtractCost = this.SubtractCost.bind(this)
+         this.SubtractVal = this.SubtractVal.bind(this)
+         this.state ={Storage:localStorage,TotalVal:0,TotalCost:0}
      }
      UpdateStorage(e){
          let Storage = window.localStorage
@@ -66,9 +70,19 @@ class App extends React.Component{
          Storage.setItem(Id,storageString)
          const finalP= Number(subP)*Number(subP2)
          const finalP2 =Number(subP)*Number(subP3) 
+         const Subtract = Number(N3parent.firstElementChild.value)
+         const Subtract2 = Number(N4parent.firstElementChild.value)
+         this.setState((state)=>{
+              return {TotalCost:state.TotalCost-Subtract}
+         })
+         this.setState((state)=>{
+             return {TotalVal:state.TotalVal-Subtract2}
+         })
          N3parent.firstElementChild.setAttribute('value',finalP)
-         N4parent.firstElementChild.setAttribute('value',finalP2)
-           
+         N4parent.firstElementChild.setAttribute('value',finalP2)  
+         this.setState((state)=>{
+             return {TotalCost:state.TotalCost+finalP,TotalVal:state.TotalVal+finalP2}
+         })
      }
      UpdateProduct2(e){
         let Storage = window.localStorage
@@ -85,8 +99,14 @@ class App extends React.Component{
          let storageString = `${storageName} ${storageId} ${subP2} ${subP} ${subP3}`
          Storage.setItem(Id,storageString)
          const finalP = Number(subP)*Number(subP2)
+         const Subtract = Number(N3parent.firstElementChild.value)
+         this.setState((state)=>{
+             return{TotalCost:state.TotalCost-Subtract}
+         })
          N3parent.firstElementChild.setAttribute('value',finalP)
-
+         this.setState((state)=>{
+             return{TotalCost:state.TotalCost+finalP}
+         })
      }
      UpdateProduct3(e){
        let Storage = window.localStorage
@@ -102,8 +122,15 @@ class App extends React.Component{
        let storageString =`${storageName} ${storageId} ${subP2} ${subP3} ${subP}`
        Storage.setItem(Id,storageString)
        const finalP = Number(subP)*Number(subP2)
-       let N3parent = parent.nextElementSibling.nextElementSibling
+       let N3parent = parent.nextElementSibling.nextElementSibling 
+       let Subtract = Number(N3parent.firstElementChild.value)
+       this.setState((state)=>{
+           return {TotalVal:state.TotalVal-Subtract}
+       })
        N3parent.firstElementChild.setAttribute('value',finalP)
+       this.setState((state)=>{
+           return {TotalVal:state.TotalVal+finalP}
+       })
     }  
     AddProduct(e){
         let table = document.getElementById('mainTable')
@@ -138,10 +165,29 @@ class App extends React.Component{
             let storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value
             let storageString =`${storageName} ${storageId} ${subP} ${subP2} ${subP3}`
             Storage.setItem(newId,storageString)
+            let Subtractor = document.getElementById('Subtractor')
+            let Subtractor2 = document.getElementById('Subtractor2')
+            let Adder = document.getElementById('Adder')
+            let Adder2 = document.getElementById('Adder2')
+            let input = new Event('input',{
+                'view': window, 
+                'bubbles': true, 
+                'cancelable': false
+               })
             const finalP= Number(subP)*Number(subP2)
             const finalP2 =Number(subP)*Number(subP3) 
+            let SubtractVal = Number(N3parent.firstElementChild.value)
+            let SubtractVal2 = Number(N4parent.firstElementChild.value)
+            Subtractor.value = SubtractVal
+            Subtractor2.value = SubtractVal2
+            Subtractor.dispatchEvent(input)
+            Subtractor2.dispatchEvent(input)
             N3parent.firstElementChild.setAttribute('value',finalP)
             N4parent.firstElementChild.setAttribute('value',finalP2)
+            Adder.value = finalP
+            Adder2.value = finalP2
+            Adder.dispatchEvent(input)
+            Adder2.dispatchEvent(input)
         }
         let UpdateProduct2 = (e)=>{
          let subP = e.target.value
@@ -155,9 +201,20 @@ class App extends React.Component{
          let subP3 = N2parent.firstElementChild.value
          let storageString = `${storageName} ${storageId} ${subP2} ${subP} ${subP3}`
          Storage.setItem(newId,storageString)
+         let input = new Event('input',{
+            'view': window, 
+            'bubbles': true, 
+            'cancelable': false
+           })
+         let Subtractor = document.getElementById('Subtractor')
+         let Adder = document.getElementById('Adder')
          const finalP = Number(subP)*Number(subP2)
+         let Subtract = Number(N3parent.firstElementChild.value)
+         Subtractor.value = Subtract
+         Subtractor.dispatchEvent(input)
          N3parent.firstElementChild.setAttribute('value',finalP)
-
+         Adder.value=finalP
+         Adder.dispatchEvent(input)
         }
         let UpdateProduct3= (e)=> {
             let subP = e.target.value;
@@ -170,9 +227,21 @@ class App extends React.Component{
             let storageName =N2parent.previousElementSibling.previousElementSibling.firstElementChild.value
             let storageString =`${storageName} ${storageId} ${subP2} ${subP3} ${subP}`
             Storage.setItem(newId,storageString)
+            let input = new Event('input',{
+                'view': window, 
+                'bubbles': true, 
+                'cancelable': false
+               })
+            let Subtract =  Number(N3parent.firstElementChild.value)
+            let Subtractor2 = document.getElementById('Subtractor2') 
+            let Adder2 = document.getElementById('Adder2') 
             const finalP = Number(subP) * Number(subP2);
             let N3parent = parent.nextElementSibling.nextElementSibling;
+            Subtractor2.value = Subtract
+            Subtractor2.dispatchEvent(input)
             N3parent.firstElementChild.setAttribute('value', finalP);
+            Adder2.value = finalP
+            Adder2.dispatchEvent(input)
         }
         let UpdateStorage=(e)=>{
             let storageName = e.target.value
@@ -208,8 +277,32 @@ class App extends React.Component{
         let NewContainer = document.createElement('tbody')
         table.append(NewContainer)
     }  
+    addCost(e){
+        const data = Number(e.target.value)
+        this.setState((state)=>{
+            return {TotalCost:state.TotalCost+data}
+        })
+
+    }
+    addVal(e){
+        const data = Number(e.target.value)
+        this.setState((state)=>{
+            return {TotalVal:state.TotalVal+data}
+        })
+    }
+    SubtractCost(e){
+        const data = Number(e.target.value)
+        this.setState((state)=>{
+            return {TotalCost:state.TotalCost-data}
+        })
+    }
+    SubtractVal(e){
+        const data = Number(e.target.value)
+        this.setState((state)=>{
+            return {TotalVal:state.TotalVal-data}
+        }) 
+    }
     componentDidMount(){
-        let InitialTable = document.getElementById("InitialRenderingContainer")
         const Storage = window.localStorage
         if(Array.from(Storage).length === 0){
           null
@@ -233,7 +326,6 @@ class App extends React.Component{
                     inputs[j].firstElementChild.dispatchEvent(InpEvent)
 
                 }
-                console.log(finalData)
              }
         }
     }
@@ -241,13 +333,16 @@ class App extends React.Component{
        return(
            <main>
                <section id="InfoAndSearch">
-                   <h1 id="mainInfo">El valor total del inventario es <span id="ElementsValue">$0</span> y contiene   
-                    <span id ="ElementsNumber"> 0</span> productos
+                   <h1 id="mainInfo">Valor total ${this.state.TotalVal}<br></br>Costo total ${this.state.TotalCost}
                    </h1>
                    <form id="Searcher">
                        <input type="text" id="Search"></input>
                        <label htmlFor="Search">Busca productos</label>
                    </form>
+                   <input id="Adder" onInput={this.addCost} hidden></input>
+                   <input id="Adder2" onInput={this.addVal} hidden></input>
+                   <input id="Subtractor" onInput={this.SubtractCost} hidden></input>
+                   <input id="Subtractor2" onInput={this.SubtractVal} hidden></input>
                </section>
                <br></br>
                <section id="InformationSource">

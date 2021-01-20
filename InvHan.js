@@ -43,12 +43,12 @@ function Item(props) {
             React.createElement(
                 "th",
                 null,
-                React.createElement("input", null)
+                React.createElement("input", { type: "number" })
             ),
             React.createElement(
                 "th",
                 null,
-                React.createElement("input", null)
+                React.createElement("input", { type: "number" })
             )
         ));
     }
@@ -67,7 +67,11 @@ var App = function (_React$Component) {
         _this.UpdateProduct2 = _this.UpdateProduct2.bind(_this);
         _this.UpdateProduct3 = _this.UpdateProduct3.bind(_this);
         _this.AddProduct = _this.AddProduct.bind(_this);
-        _this.state = { Storage: localStorage };
+        _this.addCost = _this.addCost.bind(_this);
+        _this.addVal = _this.addVal.bind(_this);
+        _this.SubtractCost = _this.SubtractCost.bind(_this);
+        _this.SubtractVal = _this.SubtractVal.bind(_this);
+        _this.state = { Storage: localStorage, TotalVal: 0, TotalCost: 0 };
         return _this;
     }
 
@@ -118,8 +122,19 @@ var App = function (_React$Component) {
             Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
             var finalP2 = Number(subP) * Number(subP3);
+            var Subtract = Number(N3parent.firstElementChild.value);
+            var Subtract2 = Number(N4parent.firstElementChild.value);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost - Subtract };
+            });
+            this.setState(function (state) {
+                return { TotalVal: state.TotalVal - Subtract2 };
+            });
             N3parent.firstElementChild.setAttribute('value', finalP);
             N4parent.firstElementChild.setAttribute('value', finalP2);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost + finalP, TotalVal: state.TotalVal + finalP2 };
+            });
         }
     }, {
         key: "UpdateProduct2",
@@ -138,7 +153,14 @@ var App = function (_React$Component) {
             var storageString = storageName + " " + storageId + " " + subP2 + " " + subP + " " + subP3;
             Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
+            var Subtract = Number(N3parent.firstElementChild.value);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost - Subtract };
+            });
             N3parent.firstElementChild.setAttribute('value', finalP);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost + finalP };
+            });
         }
     }, {
         key: "UpdateProduct3",
@@ -157,7 +179,14 @@ var App = function (_React$Component) {
             Storage.setItem(Id, storageString);
             var finalP = Number(subP) * Number(subP2);
             var N3parent = parent.nextElementSibling.nextElementSibling;
+            var Subtract = Number(N3parent.firstElementChild.value);
+            this.setState(function (state) {
+                return { TotalVal: state.TotalVal - Subtract };
+            });
             N3parent.firstElementChild.setAttribute('value', finalP);
+            this.setState(function (state) {
+                return { TotalVal: state.TotalVal + finalP };
+            });
         }
     }, {
         key: "AddProduct",
@@ -190,10 +219,29 @@ var App = function (_React$Component) {
                 var storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value;
                 var storageString = storageName + " " + storageId + " " + subP + " " + subP2 + " " + subP3;
                 Storage.setItem(newId, storageString);
+                var Subtractor = document.getElementById('Subtractor');
+                var Subtractor2 = document.getElementById('Subtractor2');
+                var Adder = document.getElementById('Adder');
+                var Adder2 = document.getElementById('Adder2');
+                var input = new Event('input', {
+                    'view': window,
+                    'bubbles': true,
+                    'cancelable': false
+                });
                 var finalP = Number(subP) * Number(subP2);
                 var finalP2 = Number(subP) * Number(subP3);
+                var SubtractVal = Number(N3parent.firstElementChild.value);
+                var SubtractVal2 = Number(N4parent.firstElementChild.value);
+                Subtractor.value = SubtractVal;
+                Subtractor2.value = SubtractVal2;
+                Subtractor.dispatchEvent(input);
+                Subtractor2.dispatchEvent(input);
                 N3parent.firstElementChild.setAttribute('value', finalP);
                 N4parent.firstElementChild.setAttribute('value', finalP2);
+                Adder.value = finalP;
+                Adder2.value = finalP2;
+                Adder.dispatchEvent(input);
+                Adder2.dispatchEvent(input);
             };
             var UpdateProduct2 = function UpdateProduct2(e) {
                 var subP = e.target.value;
@@ -207,8 +255,20 @@ var App = function (_React$Component) {
                 var subP3 = N2parent.firstElementChild.value;
                 var storageString = storageName + " " + storageId + " " + subP2 + " " + subP + " " + subP3;
                 Storage.setItem(newId, storageString);
+                var input = new Event('input', {
+                    'view': window,
+                    'bubbles': true,
+                    'cancelable': false
+                });
+                var Subtractor = document.getElementById('Subtractor');
+                var Adder = document.getElementById('Adder');
                 var finalP = Number(subP) * Number(subP2);
+                var Subtract = Number(N3parent.firstElementChild.value);
+                Subtractor.value = Subtract;
+                Subtractor.dispatchEvent(input);
                 N3parent.firstElementChild.setAttribute('value', finalP);
+                Adder.value = finalP;
+                Adder.dispatchEvent(input);
             };
             var UpdateProduct3 = function UpdateProduct3(e) {
                 var subP = e.target.value;
@@ -221,9 +281,21 @@ var App = function (_React$Component) {
                 var storageName = N2parent.previousElementSibling.previousElementSibling.firstElementChild.value;
                 var storageString = storageName + " " + storageId + " " + subP2 + " " + subP3 + " " + subP;
                 Storage.setItem(newId, storageString);
+                var input = new Event('input', {
+                    'view': window,
+                    'bubbles': true,
+                    'cancelable': false
+                });
+                var Subtract = Number(N3parent.firstElementChild.value);
+                var Subtractor2 = document.getElementById('Subtractor2');
+                var Adder2 = document.getElementById('Adder2');
                 var finalP = Number(subP) * Number(subP2);
                 var N3parent = parent.nextElementSibling.nextElementSibling;
+                Subtractor2.value = Subtract;
+                Subtractor2.dispatchEvent(input);
                 N3parent.firstElementChild.setAttribute('value', finalP);
+                Adder2.value = finalP;
+                Adder2.dispatchEvent(input);
             };
             var UpdateStorage = function UpdateStorage(e) {
                 var storageName = e.target.value;
@@ -290,9 +362,40 @@ var App = function (_React$Component) {
             table.append(NewContainer);
         }
     }, {
+        key: "addCost",
+        value: function addCost(e) {
+            var data = Number(e.target.value);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost + data };
+            });
+        }
+    }, {
+        key: "addVal",
+        value: function addVal(e) {
+            var data = Number(e.target.value);
+            this.setState(function (state) {
+                return { TotalVal: state.TotalVal + data };
+            });
+        }
+    }, {
+        key: "SubtractCost",
+        value: function SubtractCost(e) {
+            var data = Number(e.target.value);
+            this.setState(function (state) {
+                return { TotalCost: state.TotalCost - data };
+            });
+        }
+    }, {
+        key: "SubtractVal",
+        value: function SubtractVal(e) {
+            var data = Number(e.target.value);
+            this.setState(function (state) {
+                return { TotalVal: state.TotalVal - data };
+            });
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
-            var InitialTable = document.getElementById("InitialRenderingContainer");
             var Storage = window.localStorage;
             if (Array.from(Storage).length === 0) {
                 null;
@@ -337,7 +440,6 @@ var App = function (_React$Component) {
                         inputs[j].firstElementChild.value = finalData[j];
                         inputs[j].firstElementChild.dispatchEvent(InpEvent);
                     }
-                    console.log(finalData);
                 }
             }
         }
@@ -353,19 +455,11 @@ var App = function (_React$Component) {
                     React.createElement(
                         "h1",
                         { id: "mainInfo" },
-                        "El valor total del inventario es ",
-                        React.createElement(
-                            "span",
-                            { id: "ElementsValue" },
-                            "$0"
-                        ),
-                        " y contiene",
-                        React.createElement(
-                            "span",
-                            { id: "ElementsNumber" },
-                            " 0"
-                        ),
-                        " productos"
+                        "Valor total $",
+                        this.state.TotalVal,
+                        React.createElement("br", null),
+                        "Costo total $",
+                        this.state.TotalCost
                     ),
                     React.createElement(
                         "form",
@@ -376,7 +470,11 @@ var App = function (_React$Component) {
                             { htmlFor: "Search" },
                             "Busca productos"
                         )
-                    )
+                    ),
+                    React.createElement("input", { id: "Adder", onInput: this.addCost, hidden: true }),
+                    React.createElement("input", { id: "Adder2", onInput: this.addVal, hidden: true }),
+                    React.createElement("input", { id: "Subtractor", onInput: this.SubtractCost, hidden: true }),
+                    React.createElement("input", { id: "Subtractor2", onInput: this.SubtractVal, hidden: true })
                 ),
                 React.createElement("br", null),
                 React.createElement(
