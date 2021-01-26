@@ -38,7 +38,7 @@ class App extends React.Component{
          let storageItems =nextParent.nextElementSibling.firstElementChild.value
          let storagePrice =nextParent.nextElementSibling.nextElementSibling.firstElementChild.value
          let storagePrice2 =nextParent.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value
-         let storageString =`${storageName} ${storageId} ${storageItems} ${storagePrice} ${storagePrice2}`
+         let storageString =`{${storageName}} {${storageId}} {${storageItems}} {${storagePrice}} {${storagePrice2}}`
          Storage.setItem(Id,storageString)
      }
       UpdateStorage2(e){
@@ -50,7 +50,7 @@ class App extends React.Component{
         let storageItems=nextParent.firstElementChild.value
         let storagePrice=nextParent.nextElementSibling.firstElementChild.value
         let storagePrice2=nextParent.nextElementSibling.nextElementSibling.firstElementChild.value
-        let storageString=`${storageName} ${storageId} ${storageItems} ${storagePrice} ${storagePrice2}`
+        let storageString=`{${storageName}} {${storageId}} {${storageItems}} {${storagePrice}} {${storagePrice2}}`
         Storage.setItem(Id,storageString)
     }
      UpdateProduct(e){
@@ -66,7 +66,7 @@ class App extends React.Component{
          let subP2 = Nparent.firstElementChild.value
          let storageId = parent.previousElementSibling.firstElementChild.value
          let storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value
-         let storageString =`${storageName} ${storageId} ${subP} ${subP2} ${subP3}`
+         let storageString =`{${storageName}} {${storageId}} {${subP}} {${subP2}} {${subP3}}`
          Storage.setItem(Id,storageString)
          const finalP= Number(subP)*Number(subP2)
          const finalP2 =Number(subP)*Number(subP3) 
@@ -96,7 +96,7 @@ class App extends React.Component{
          let storageId = Nparent.previousElementSibling.firstElementChild.value
          let storageName = Nparent.previousElementSibling.previousElementSibling.firstElementChild.value
          let subP3 = N2parent.firstElementChild.value
-         let storageString = `${storageName} ${storageId} ${subP2} ${subP} ${subP3}`
+         let storageString = `{${storageName}} {${storageId}} {${subP2}} {${subP}} {${subP3}}`
          Storage.setItem(Id,storageString)
          const finalP = Number(subP)*Number(subP2)
          const Subtract = Number(N3parent.firstElementChild.value)
@@ -119,7 +119,7 @@ class App extends React.Component{
        let subP3 = Nparent.firstElementChild.value;
        let storageId = N2parent.previousElementSibling.firstElementChild.value
        let storageName =N2parent.previousElementSibling.previousElementSibling.firstElementChild.value
-       let storageString =`${storageName} ${storageId} ${subP2} ${subP3} ${subP}`
+       let storageString =`{${storageName}} {${storageId}} {${subP2}} {${subP3}} {${subP}}`
        Storage.setItem(Id,storageString)
        const finalP = Number(subP)*Number(subP2)
        let N3parent = parent.nextElementSibling.nextElementSibling 
@@ -141,14 +141,27 @@ class App extends React.Component{
         let newId 
         let firstId
         if(Item.childElementCount === 0){
-            container.previousElementSibling === Item ?newId = 'N0':
-            (firstId=container.previousElementSibling.lastElementChild.getAttribute('id') ,newId = 'N'+String(Number(firstId[1])+1));
+            if(container.previousElementSibling === Item) {
+                newId = 'N0'
+            }else{
+                firstId=container.previousElementSibling.lastElementChild.getAttribute('id') 
+                let NfirstId =''
+                for(let i = 1;i<firstId.length;i++){
+                    NfirstId+=firstId[i]
+                }
+                console.log(NfirstId)
+                newId = 'N'+String(Number(NfirstId)+1)
+            }
 
             
         }else{
             startingPoint = container.previousElementSibling
             firstId = startingPoint.lastElementChild.getAttribute('id')
-            newId = 'N'+String(Number(firstId[1])+1)
+            let NfirstId =''
+            for(let i = 1;i<firstId.length;i++){
+                NfirstId+=firstId[i]
+            }
+            newId = 'N'+String(Number(NfirstId)+1)
 
         }
         Storage.setItem(newId,'')
@@ -163,7 +176,7 @@ class App extends React.Component{
             let subP2 = Nparent.firstElementChild.value
             let storageId = parent.previousElementSibling.firstElementChild.value
             let storageName = parent.previousElementSibling.previousElementSibling.firstElementChild.value
-            let storageString =`${storageName} ${storageId} ${subP} ${subP2} ${subP3}`
+            let storageString =`{${storageName}} {${storageId}} {${subP}} {${subP2}} {${subP3}}`
             Storage.setItem(newId,storageString)
             let Subtractor = document.getElementById('Subtractor')
             let Subtractor2 = document.getElementById('Subtractor2')
@@ -199,7 +212,7 @@ class App extends React.Component{
          let storageId = Nparent.previousElementSibling.firstElementChild.value
          let storageName = Nparent.previousElementSibling.previousElementSibling.firstElementChild.value
          let subP3 = N2parent.firstElementChild.value
-         let storageString = `${storageName} ${storageId} ${subP2} ${subP} ${subP3}`
+         let storageString = `{${storageName}} {${storageId}} {${subP2}} {${subP}} {${subP3}}`
          Storage.setItem(newId,storageString)
          let input = new Event('input',{
             'view': window, 
@@ -225,7 +238,7 @@ class App extends React.Component{
             let subP3 = Nparent.firstElementChild.value;
             let storageId = N2parent.previousElementSibling.firstElementChild.value
             let storageName =N2parent.previousElementSibling.previousElementSibling.firstElementChild.value
-            let storageString =`${storageName} ${storageId} ${subP2} ${subP3} ${subP}`
+            let storageString =`{${storageName}} {${storageId}} {${subP2}} {${subP3}} {${subP}}`
             Storage.setItem(newId,storageString)
             let input = new Event('input',{
                 'view': window, 
@@ -250,7 +263,7 @@ class App extends React.Component{
             let storageItems =nextParent.nextElementSibling.firstElementChild.value
             let storagePrice =nextParent.nextElementSibling.nextElementSibling.firstElementChild.value
             let storagePrice2 =nextParent.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.value
-            let storageString =`${storageName} ${storageId} ${storageItems} ${storagePrice} ${storagePrice2}`
+            let storageString =`{${storageName}} {${storageId}} {${storageItems}} {${storagePrice}} {${storagePrice2}}`
             Storage.setItem(newId,storageString)
         }
         let UpdateStorage2=(e)=>{
@@ -260,7 +273,7 @@ class App extends React.Component{
             let storageItems=nextParent.firstElementChild.value
             let storagePrice=nextParent.nextElementSibling.firstElementChild.value
             let storagePrice2=nextParent.nextElementSibling.nextElementSibling.firstElementChild.value
-            let storageString=`${storageName} ${storageId} ${storageItems} ${storagePrice} ${storagePrice2}`
+            let storageString=`{${storageName}} {${storageId}} {${storageItems}} {${storagePrice}} {${storagePrice2}}`
             Storage.setItem(newId,storageString)
         }
         let elm = <tr id = {newId}>
@@ -309,7 +322,7 @@ class App extends React.Component{
         }else{
             for(let i =0;i<Storage.length;i++){
                  let key =  Storage.key(i)
-                 let RawData =Storage.getItem(key)
+                 let RawData =Array.from(Storage.getItem(key))
                  let parent = document.getElementById(key)
                  let inputs = Array.from(parent.children)
                  let InpEvent = new Event('input',{
@@ -317,9 +330,21 @@ class App extends React.Component{
                     'bubbles': true, 
                     'cancelable': false
                    })
-                let finalData = ['']
-                for(let e of Array.from(RawData)){
-                    e!==' '?finalData[finalData.length-1]+=e:finalData.push('')
+                let finalData = []
+                for(let e=0;e<RawData.length;e++){
+                    let vr=''
+                   if( RawData[e] === '{' ){
+                      for(let k = e+1;;k++){
+                           if(RawData[k]==='}'){
+                               e+=k
+                               break
+                           }else{
+                               vr+=RawData[k]
+                           }
+                      }
+                   }
+                    finalData.push(vr)
+                    vr=''
                 }
                 for(let j=0;j<5;j++){
                     inputs[j].firstElementChild.value =finalData[j]
@@ -366,8 +391,7 @@ class App extends React.Component{
                       <tbody>
                       </tbody>        
                       </table>        
-                   <button type="button" id="newElement" onClick={this.AddProduct}></button>
-                   <label htmlFor="newElement" id="LabelButtonAdd">Agrega nueva mercancia!</label>    
+                   <button type="button" id="newElement" onClick={this.AddProduct}>Nuevo producto</button> 
                </section>
            </main> 
        ) 

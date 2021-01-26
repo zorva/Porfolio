@@ -10,10 +10,6 @@
  th{
     border: 1px solid black;
 }
-#newElement{
-    height: 15px;
-    border-radius: 50%;
-}
 #units,#value{
    width: 70px;
    margin: 3px;
