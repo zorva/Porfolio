@@ -18,7 +18,7 @@ function Item(props) {
             React.createElement(
                 "th",
                 null,
-                React.createElement("input", { type: "text", onInput: props.UpdateStorage })
+                React.createElement("input", { type: "text", onInput: props.UpdateStorage, className: "Name" })
             ),
             React.createElement(
                 "th",
@@ -337,7 +337,7 @@ var App = function (_React$Component) {
                 React.createElement(
                     "th",
                     null,
-                    React.createElement("input", { type: "text", onInput: UpdateStorage })
+                    React.createElement("input", { type: "text", onInput: UpdateStorage, className: "Name" })
                 ),
                 React.createElement(
                     "th",
@@ -428,17 +428,15 @@ var App = function (_React$Component) {
                     for (var e = 0; e < RawData.length; e++) {
                         var vr = '';
                         if (RawData[e] === '{') {
-                            for (var k = e + 1;; k++) {
-                                if (RawData[k] === '}') {
-                                    e += k;
-                                    break;
-                                } else {
-                                    vr += RawData[k];
-                                }
+                            var tvar = 1;
+                            while (RawData[e + tvar] !== '}') {
+                                vr += RawData[e + tvar];
+                                tvar++;
                             }
+                            e += tvar;
+                            finalData.push(vr);
+                            vr = '';
                         }
-                        finalData.push(vr);
-                        vr = '';
                     }
                     for (var j = 0; j < 5; j++) {
                         inputs[j].firstElementChild.value = finalData[j];
@@ -464,16 +462,6 @@ var App = function (_React$Component) {
                         React.createElement("br", null),
                         "Costo total $",
                         this.state.TotalCost
-                    ),
-                    React.createElement(
-                        "form",
-                        { id: "Searcher" },
-                        React.createElement("input", { type: "text", id: "Search" }),
-                        React.createElement(
-                            "label",
-                            { htmlFor: "Search" },
-                            "Busca productos"
-                        )
                     ),
                     React.createElement("input", { id: "Adder", onInput: this.addCost, hidden: true }),
                     React.createElement("input", { id: "Adder2", onInput: this.addVal, hidden: true }),

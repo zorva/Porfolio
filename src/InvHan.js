@@ -4,7 +4,7 @@ function Item(props){
     let arr2 =[]
     for( let i in arr){
         arr2.push(<tr id ={`N${i}`}>
-        <th><input type="text" onInput={props.UpdateStorage}></input></th>
+        <th><input type="text" onInput={props.UpdateStorage} className="Name"></input></th>
         <th><input type="text" onInput={props.UpdateStorage2}></input></th> 
         <th><input type="number" onInput={props.UpdateProduct}></input></th> 
         <th><input type ="number" onInput={props.UpdateProduct2}></input></th>
@@ -277,7 +277,7 @@ class App extends React.Component{
             Storage.setItem(newId,storageString)
         }
         let elm = <tr id = {newId}>
-        <th><input type="text" onInput={UpdateStorage}></input></th>
+        <th><input type="text" onInput={UpdateStorage} className ="Name"></input></th>
         <th><input type="text" onInput={UpdateStorage2}></input></th>
         <th><input type="number" onInput={UpdateProduct}
         ></input></th> 
@@ -333,18 +333,18 @@ class App extends React.Component{
                 let finalData = []
                 for(let e=0;e<RawData.length;e++){
                     let vr=''
-                   if( RawData[e] === '{' ){
-                      for(let k = e+1;;k++){
-                           if(RawData[k]==='}'){
-                               e+=k
-                               break
-                           }else{
-                               vr+=RawData[k]
-                           }
-                      }
-                   }
-                    finalData.push(vr)
-                    vr=''
+                   if( RawData[e] === '{'  ){
+                        let tvar = 1
+                        while(RawData[e+tvar]!=='}'){
+                            vr+=RawData[e+tvar]
+                            tvar++
+                        }
+                        e+=tvar
+                        finalData.push(vr)
+                        vr=''
+                    }
+                      
+                   
                 }
                 for(let j=0;j<5;j++){
                     inputs[j].firstElementChild.value =finalData[j]
@@ -360,10 +360,6 @@ class App extends React.Component{
                <section id="InfoAndSearch">
                    <h1 id="mainInfo">Valor total ${this.state.TotalVal}<br></br>Costo total ${this.state.TotalCost}
                    </h1>
-                   <form id="Searcher">
-                       <input type="text" id="Search"></input>
-                       <label htmlFor="Search">Busca productos</label>
-                   </form>
                    <input id="Adder" onInput={this.addCost} hidden></input>
                    <input id="Adder2" onInput={this.addVal} hidden></input>
                    <input id="Subtractor" onInput={this.SubtractCost} hidden></input>
