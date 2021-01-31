@@ -1,23 +1,22 @@
-'use strict';
-class App extends Reat.Component {
+class App extends React.Component {
     render(){
         return( 
-        <div className="todo-Container stack-large">
+        <div className="todoapp stack-large">
          <h1>todo list</h1>
          <form>
              <h2 className="label-wrapper">
-                 <label htmlFor="new-todo-input" className="label-lg">
+                 <label htmlFor="new-todo-input" className="label__lg">
                      pending tasks
                  </label>
              </h2>
              <input
              type="text"
              id="new-todo-input"
-             className="input input-lg"
+             className="input input__lg"
              name="text"
              autoComplete="off"
              ></input>
-             <button type="submit" className="btn btn-primaty btn-lg">
+             <button type="submit" className="btn btn__primary btn__lg">
                  Add
              </button>
          </form>
@@ -41,6 +40,15 @@ class App extends Reat.Component {
          <h2 id="list-heading">
         3 tasks remaining
         </h2>
+        <ul
+          role = "list"
+          className="todo-list stack-large stack-exception"
+          aria-labelledby="list-heading"
+        >
+        <Todo/>
+        <Todo/>
+        <Todo/>
+        </ul>
         </div>
         );
     }
