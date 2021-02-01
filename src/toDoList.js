@@ -1,5 +1,19 @@
+const DATA = [
+    { id: "todo-0", name: "Eat", completed: true },
+    { id: "todo-1", name: "Sleep", completed: false },
+    { id: "todo-2", name: "Repeat", completed: false }
+  ];
+
 class App extends React.Component {
     render(){
+        const taskList = this.props.tasks.map(
+        task => 
+        <Todo 
+        id = {task.id} 
+        name = {task.name} 
+        completed = {task.completed} 
+        key = {task.id}
+         /> )
         return( 
         <div className="todoapp stack-large">
          <h1>todo list</h1>
@@ -45,13 +59,11 @@ class App extends React.Component {
           className="todo-list stack-large stack-exception"
           aria-labelledby="list-heading"
         >
-        <Todo/>
-        <Todo/>
-        <Todo/>
+        {taskList}
         </ul>
         </div>
         );
     }
 }
 
-ReactDOM.render(<App/>,document.getElementById('root'))
+ReactDOM.render(<App tasks={DATA}/>,document.getElementById('root'))

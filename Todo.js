@@ -1,15 +1,15 @@
-function Todo() {
+function Todo(props) {
   return React.createElement(
     "li",
     { className: "todo stack-small" },
     React.createElement(
       "div",
       { className: "c-cb" },
-      React.createElement("input", { id: "todo-0", type: "checkbox", defaultChecked: true }),
+      React.createElement("input", { id: props.id, type: "checkbox", defaultChecked: props.completed }),
       React.createElement(
         "label",
         { className: "todo-label", htmlFor: "todo-0" },
-        "Eat"
+        props.name
       )
     ),
     React.createElement(
@@ -22,7 +22,7 @@ function Todo() {
         React.createElement(
           "span",
           { className: "visually-hidden" },
-          "Eat"
+          props.name
         )
       ),
       React.createElement(
@@ -32,7 +32,7 @@ function Todo() {
         React.createElement(
           "span",
           { className: "visually-hidden" },
-          "Eat"
+          props.name
         )
       )
     )
