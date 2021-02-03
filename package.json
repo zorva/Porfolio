@@ -19,6 +19,7 @@
   "homepage": "https://github.com/zorva/React-Porfolio#readme",
   "dependencies": {
     "babel-cli": "^6.18.0",
-    "babel-preset-react-app": "^3.1.2"
+    "babel-preset-react-app": "^3.1.2",
+    "nanoid": "^3.1.20"
   }
 }

@@ -5,6 +5,21 @@ const DATA = [
   ];
 
 class App extends React.Component {
+    constructor(props){
+        super(props)
+    this.state ={
+        tasks:this.props.tasks
+    }
+}
+
+    addTask=(name)=>{
+     let newId = Number(this.state.tasks[this.state.tasks.length-1].id[5])+1
+     const newTask = {id:'todo-'+newId,name:name,completed:false}
+     this.setState(state=>{
+         return{tasks:state.tasks.push(newTask)}
+     })
+     console.log(this.state.tasks)
+    }
     render(){
         const taskList = this.props.tasks.map(
         task => 
@@ -16,40 +31,11 @@ class App extends React.Component {
          /> )
         return( 
         <div className="todoapp stack-large">
-         <h1>todo list</h1>
-         <form>
-             <h2 className="label-wrapper">
-                 <label htmlFor="new-todo-input" className="label__lg">
-                     pending tasks
-                 </label>
-             </h2>
-             <input
-             type="text"
-             id="new-todo-input"
-             className="input input__lg"
-             name="text"
-             autoComplete="off"
-             ></input>
-             <button type="submit" className="btn btn__primary btn__lg">
-                 Add
-             </button>
-         </form>
+         <Form addTask={this.addTask}/>
          <div className="filters btn-group stack-exception" >
-             <button type="button" className="btn toggle-btn" aria-pressed="false">
-                 <span className="visually-hidden">Show</span>
-                 <span>all</span>
-                 <span className="visually-hidden">tasks</span>
-             </button>
-             <button type="button" className="btn toggle-btn" aria-pressed="false">
-                 <span className="visually-hidden">Show</span>
-                 <span>active</span>
-                 <span className="visually-hidden">tasks</span>
-             </button>
-             <button type="button" className="btn toggle-btn" aria-pressed="false">
-                 <span className="visually-hidden">how</span>
-                 <span>completed</span>
-                 <span className="visually-hidden">tasks</span>
-             </button>
+            <FilterButton/>
+            <FilterButton/>
+            <FilterButton/>
          </div>
          <h2 id="list-heading">
         3 tasks remaining
