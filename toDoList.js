@@ -8,8 +8,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var DATA = [{ id: "todo-0", name: "Eat", completed: true }, { id: "todo-1", name: "Sleep", completed: false }, { id: "todo-2", name: "Repeat", completed: false }];
 
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
+var App = function (_React$PureComponent) {
+    _inherits(App, _React$PureComponent);
 
     function App(props) {
         _classCallCheck(this, App);
@@ -17,11 +17,15 @@ var App = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.addTask = function (name) {
-            var newId = Number(_this.state.tasks[_this.state.tasks.length - 1].id[5]) + 1;
-            var newTask = { id: 'todo-' + newId, name: name, completed: false };
-            _this.setState(function (state) {
-                return { tasks: state.tasks.push(newTask) };
-            });
+            var lastID = _this.props.tasks[_this.props.tasks.length - 1].id;
+            var newID = '';
+            for (var i = 5; i < lastID.length; i++) {
+                newID += lastID[i];
+            }
+            newID = Number(newID) + 1;
+            var newTask = { id: 'todo-' + newID, name: name, completed: false };
+            _this.props.tasks.push(newTask);
+            _this.forceUpdate();
             console.log(_this.state.tasks);
         };
 
@@ -34,7 +38,7 @@ var App = function (_React$Component) {
     _createClass(App, [{
         key: "render",
         value: function render() {
-            var taskList = this.props.tasks.map(function (task) {
+            var taskList = this.state.tasks.map(function (task) {
                 return React.createElement(Todo, {
                     id: task.id,
                     name: task.name,
@@ -72,6 +76,6 @@ var App = function (_React$Component) {
     }]);
 
     return App;
-}(React.Component);
+}(React.PureComponent);
 
 ReactDOM.render(React.createElement(App, { tasks: DATA }), document.getElementById('root'));

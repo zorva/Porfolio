@@ -1,10 +1,10 @@
-const DATA = [
+var DATA = [
     { id: "todo-0", name: "Eat", completed: true },
     { id: "todo-1", name: "Sleep", completed: false },
     { id: "todo-2", name: "Repeat", completed: false }
   ];
 
-class App extends React.Component {
+class App extends React.PureComponent {
     constructor(props){
         super(props)
     this.state ={
@@ -13,15 +13,19 @@ class App extends React.Component {
 }
 
     addTask=(name)=>{
-     let newId = Number(this.state.tasks[this.state.tasks.length-1].id[5])+1
-     const newTask = {id:'todo-'+newId,name:name,completed:false}
-     this.setState(state=>{
-         return{tasks:state.tasks.push(newTask)}
-     })
+     let lastID = this.props.tasks[this.props.tasks.length-1].id
+     let newID = ''
+     for(let i=5;i<lastID.length;i++){
+         newID+=lastID[i]
+     }
+     newID=Number(newID)+1
+     const newTask = {id:'todo-'+newID,name:name,completed:false}
+     this.props.tasks.push(newTask)
+     this.forceUpdate();
      console.log(this.state.tasks)
     }
     render(){
-        const taskList = this.props.tasks.map(
+        const taskList = this.state.tasks.map(
         task => 
         <Todo 
         id = {task.id} 
