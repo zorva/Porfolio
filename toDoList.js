@@ -8,7 +8,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DATA = [{ id: "todo-0", name: "Eat", completed: true }, { id: "todo-1", name: "Sleep", completed: false }, { id: "todo-2", name: "Repeat", completed: false }];
+var DATA = [{ id: "todo-0", name: "Eat", completed: false }, { id: "todo-1", name: "Sleep", completed: false }, { id: "todo-2", name: "Repeat", completed: false }];
 var FILTER_MAP = {
     All: function All() {
         return true;
@@ -20,6 +20,8 @@ var FILTER_MAP = {
         return task.completed;
     }
 };
+
+var FILTER_NAMES = Object.keys(FILTER_MAP);
 
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
@@ -70,8 +72,13 @@ var App = function (_React$Component) {
             _this.forceUpdate();
         };
 
+        _this.setFilter = function (name) {
+            _this.setState({ filter: name });
+        };
+
         _this.state = {
-            tasks: _this.props.tasks
+            tasks: _this.props.tasks,
+            filter: 'All'
         };
         return _this;
     }
@@ -81,7 +88,15 @@ var App = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var taskList = this.state.tasks.map(function (task) {
+            var filterList = FILTER_NAMES.map(function (name) {
+                return React.createElement(FilterButton, {
+                    key: name,
+                    name: name,
+                    isPressed: name === _this2.state.filter,
+                    setFilter: _this2.setFilter
+                });
+            });
+            var taskList = this.state.tasks.filter(FILTER_MAP[this.state.filter]).map(function (task) {
                 return React.createElement(Todo, {
                     id: task.id,
                     name: task.name,
@@ -101,9 +116,7 @@ var App = function (_React$Component) {
                 React.createElement(
                     "div",
                     { className: "filters btn-group stack-exception" },
-                    React.createElement(FilterButton, null),
-                    React.createElement(FilterButton, null),
-                    React.createElement(FilterButton, null)
+                    filterList
                 ),
                 React.createElement(
                     "h2",

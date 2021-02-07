@@ -1,5 +1,5 @@
 let DATA = [
-    { id: "todo-0", name: "Eat", completed: true },
+    { id: "todo-0", name: "Eat", completed: false },
     { id: "todo-1", name: "Sleep", completed: false },
     { id: "todo-2", name: "Repeat", completed: false }
   ];
@@ -8,11 +8,16 @@ let FILTER_MAP = {
     Active: task => !task.completed,
     Completed: task => task.completed
   };
+
+let FILTER_NAMES = Object.keys(FILTER_MAP) 
+
+
 class App extends React.Component {
     constructor(props){
         super(props)
     this.state ={
-        tasks:this.props.tasks
+        tasks:this.props.tasks,
+        filter:'All'
     }
 }
     addTask=(name)=>{
@@ -57,8 +62,21 @@ class App extends React.Component {
           )
           this.forceUpdate();
     }
+    setFilter=(name)=>{
+        this.setState(
+            {filter:name}
+        )
+    }
     render(){
-        const taskList = this.state.tasks.map(
+        const filterList = FILTER_NAMES.map(name => (
+            <FilterButton 
+            key={name} 
+            name={name}
+            isPressed={name === this.state.filter} 
+            setFilter={this.setFilter}   
+            />
+          ));
+        const taskList = this.state.tasks.filter(FILTER_MAP[this.state.filter]).map(
         task => 
         <Todo 
         id = {task.id} 
@@ -75,9 +93,7 @@ class App extends React.Component {
         <div className="todoapp stack-large">
          <Form addTask={this.addTask}/>
          <div className="filters btn-group stack-exception" >
-            <FilterButton/>
-            <FilterButton/>
-            <FilterButton/>
+           {filterList}
          </div>
          <h2 id="list-heading">
         {headingText}
