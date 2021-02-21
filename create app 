@@ -1,0 +1,4 @@
+yarn create react-app app-name-example
+then
+cd src 
+rm -- App.test.js App.css logo.svg  setupTests.js
