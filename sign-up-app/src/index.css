@@ -1,8 +1,26 @@
 .mainForm{
-  margin: 0 auto;
-}
-
-  *,*:before,*:after{
   box-sizing: border-box;
+  display: inline-block;
 }
 
+
+  #identification,#contact{
+    display: flex;
+    align-items: center;
+  }
+label{
+  width: 100%;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
